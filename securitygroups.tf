@@ -27,7 +27,20 @@ resource "azurerm_network_security_group" "wordpress" {
     source_address_prefix       = "*"
     destination_address_prefix  = "*"
   }
+
+  security_rule {
+    name                       = "HTTPS"
+    priority                   = 102
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "443"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
 }
+
 
 #Assigning a security group to all existing subnets
 resource "azurerm_subnet_network_security_group_association" "nsg-assoc" {
